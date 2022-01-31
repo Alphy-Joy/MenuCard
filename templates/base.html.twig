@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-	<title>SolMusic | HTML Template</title>
+	<title>{% block title %} Digital Menu Card {% endblock %}</title>
 	<meta charset="UTF-8">
 	<meta name="description" content="SolMusic HTML Template">
 	<meta name="keywords" content="music, html">
@@ -41,29 +41,32 @@
 			<img src="{{asset('img/logo.png')}}" alt="">
 		</a>
 		<div class="header-right">
-			<a href="#" class="hr-btn">Help</a>
-			<span>|</span>
 			<div class="user-panel">
-				<a href="" class="login">Login</a>
-				<a href="" class="register">Create an account</a>
+				{% if not is_granted('IS_AUTHENTICATED_FULLY')%}
+					<a href="{{ path('app_login') }}" class="login">Login</a>
+				{% endif %}
+				{% if is_granted('IS_AUTHENTICATED_FULLY')%}
+					<a href="{{ path('app_logout') }}" class="login">LogOut</a>
+				{% endif %}  
 			</div> 
 		</div>
 		<ul class="main-menu">
 			<li><a href="{{ path('home') }}">Home</a></li>
-			<li><a href="#">About</a></li>
+			<li><a href="{{ path('menu') }}">Menu</a></li>
 			<li><a href="blog.html">News</a></li>
 			<li><a href="contact.html">Contact</a></li>
-			<li><a href="#">Employees</a>
-				<ul class="sub-menu">
-					<li><a href="{{ path('dishes.list') }}">List Dishes</a></li>
-					<li><a href="{{ path('dishes.create') }}">Create New Dish</a></li>
-					<li><a href="playlist.html">Playlist</a></li>
-					<li><a href="artist.html">Artist</a></li>
-					<li><a href="blog.html">Blog</a></li>
-					<li><a href="contact.html">Contact</a></li>
-				</ul>
-			</li>
-
+			{% if is_granted('IS_AUTHENTICATED_FULLY')%}
+				<li><a href="#">Employees</a>
+					<ul class="sub-menu">
+						<li><a href="{{ path('dishes.list') }}">List Dishes</a></li>
+						<li><a href="{{ path('dishes.create') }}">Create New Dish</a></li>
+						<li><a href="playlist.html">Playlist</a></li>
+						<li><a href="artist.html">Artist</a></li>
+						<li><a href="blog.html">Blog</a></li>
+						<li><a href="{{ path('reg') }}">Register</a></li>
+					</ul>
+				</li>
+			{% endif %}
 		</ul>
 	</header>
 	<!-- Header section end -->
