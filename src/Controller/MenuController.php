@@ -14,7 +14,7 @@ class MenuController extends AbstractController
     {
         $menu = $dr->findAll();
         return $this->render('menu/index.html.twig', [
-            'menu' => $menu,
+            'dishes' => $menu,
         ]);
     }
 }
