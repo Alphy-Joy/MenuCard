@@ -3,6 +3,11 @@
 {% block title %}Menu{% endblock %}
 
 {% block body %}
+{% for message in app.flashes('order') %}
+    <div class="alert alert-success">
+        <h4>{{ message }}</h4>
+    </div>
+{% endfor %}
     <!-- Playlist section -->
 	<section class="playlist-section spad">
 		<div class="container-fluid">
@@ -24,7 +29,8 @@
 				<div class="mix col-lg-3 col-md-4 col-sm-6 {{dish.category}}">
 					<div class="playlist-item">
 						<img src="{{asset('images/' ~ dish.image)}}" alt="">
-						<h5>{{ dish.name }} - Rs. {{dish.price}}</h5>
+						<h5>{{ dish.name }} - Rs. {{dish.price}}</h5><br/>
+						<p><a class="btn btn-outline-danger btn-sm" href="{{ path('orders',{id : dish.id})}}" role="button">order</a></p>
 					</div>
 				</div>
 			{% endfor %}	
